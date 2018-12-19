@@ -1,0 +1,2 @@
+flask-unchained[dev,admin,api,celery,graphene,mail,oauth,security,session,sqlalchemy,webpack]>=0.6.6
+jinja2-time>=0.2.0
