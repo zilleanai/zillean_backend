@@ -1,5 +1,3 @@
--r requirements.txt
-
 IPython==7.1.1
 pytest==3.9.3
 pytest-flask==0.14.0
