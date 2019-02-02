@@ -13,7 +13,7 @@ def folder_or_none(folder_name):
 TEMPLATE_FOLDER = folder_or_none('templates')
 STATIC_FOLDER = folder_or_none('static')
 STATIC_URL_PATH = '/static' if STATIC_FOLDER else None
-
+DATA_FOLDER = folder_or_none('data')
 
 BUNDLES = [
     'flask_unchained.bundles.api',
