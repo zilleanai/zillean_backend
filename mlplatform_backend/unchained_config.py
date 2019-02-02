@@ -25,5 +25,5 @@ BUNDLES = [
     'flask_unchained.bundles.sqlalchemy',
     'flask_unchained.bundles.webpack',
 
-    'app',  # your app bundle *must* be last
+    'backend',  # your app bundle *must* be last
 ]
