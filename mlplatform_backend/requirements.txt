@@ -1,4 +1,6 @@
+appdirs==1.4.3
 flask-unchained[dev,admin,api,celery,graphene,mail,oauth,security,session,sqlalchemy,webpack]>=0.7.0
 jinja2-time>=0.2.0
 redis>=3.1.0
 psycopg2==2.7.7
+
