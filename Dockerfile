@@ -15,3 +15,4 @@ COPY  --chown=flask ./mlplatform_backend/ /flask/src/
 COPY ./docker/celery-beat-entrypoint.sh /
 COPY ./docker/celery-worker-entrypoint.sh /
 COPY ./docker/flask-entrypoint.sh /flask-entrypoint.sh
+ENTRYPOINT ["/flask-entrypoint.sh"]
