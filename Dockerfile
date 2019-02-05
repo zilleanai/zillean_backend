@@ -1,6 +1,5 @@
-FROM chriamue/flask-unchained
+FROM chriamue/flask-unchained:stretch
 USER root
-RUN apk --no-cache add musl-dev linux-headers g++ postgresql-dev python3-dev openblas-dev
 RUN pip install numpy Cython
 RUN pip install git+https://gitlab.chriamue.de/mlplatform/mlplatform_cli.git
 COPY ./mlplatform_backend/requirements.txt requirements.txt
