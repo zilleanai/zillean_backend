@@ -1,4 +1,4 @@
-FROM zillean/flask-unchained
+FROM zilleanai/flask-unchained
 USER root
 RUN pip install numpy Cython
 RUN pip install git+https://github.com/zilleanai/zillean_cli
