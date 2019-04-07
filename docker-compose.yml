@@ -11,7 +11,7 @@ services:
       - ./docker/postgres/data:/var/lib/postgresql
       - ./docker/postgres/init-user-db.sh:/docker-entrypoint-initdb.d/init-user-db.sh
 
-  mlplatform_backend:
+  zillean_backend:
     build:
       context: .
       dockerfile: ./Dockerfile
@@ -26,7 +26,7 @@ services:
     ports:
       - 5000:5000
 #    volumes:
-#      - ./mlplatform_backend:/flask/src
+#      - ./zillean_backend:/flask/src
 
   redis:
     image: redis:3.2-alpine
@@ -47,7 +47,7 @@ services:
     entrypoint:
       - /celery-worker-entrypoint.sh
     volumes:
-      - ./mlplatform_backend:/flask/src
+      - ./zillean_backend:/flask/src
 
   celery_beat:
     build:
@@ -58,4 +58,4 @@ services:
     entrypoint:
       - /celery-beat-entrypoint.sh
     volumes:
-      - ./mlplatform_backend:/flask/src
+      - ./zillean_backend:/flask/src
