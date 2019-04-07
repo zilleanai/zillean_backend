@@ -4,7 +4,7 @@ RUN pip install numpy Cython
 RUN pip install git+https://github.com/zilleanai/zillean_cli
 COPY ./zillean_backend/requirements.txt requirements.txt
 RUN pip install -r requirements.txt
-COPY ./mlplatform_backend/requirements-dev.txt requirements-dev.txt
+COPY ./zillean_backend/requirements-dev.txt requirements-dev.txt
 RUN pip install -r requirements-dev.txt
 
 USER flask
