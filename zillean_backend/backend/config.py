@@ -63,6 +63,21 @@ class Config(AppBundleConfig):
 
     WEBPACK_MANIFEST_PATH = os.path.join('static', 'assets', 'manifest.json')
 
+    ##########################################################################
+    # oauth                                                                  #
+    ##########################################################################
+
+    OAUTH_REMOTE_APP_GITLAB = dict(
+        consumer_key=os.getenv('OAUTH_GITLAB_CONSUMER_KEY', ''),
+        consumer_secret=os.getenv('OAUTH_GITLAB_CONSUMER_SECRET', ''),
+        base_url='https://gitlab.com/api/v4/user',
+        access_token_url='https://gitlab.com/oauth/token',
+        access_token_method='POST',
+        authorize_url='https://gitlab.com/oauth/authorize',
+        request_token_url=None,
+        request_token_params={'scope': 'openid read_user'},
+    )
+
 
 class DevConfig(Config):
     EXPLAIN_TEMPLATE_LOADING = False
