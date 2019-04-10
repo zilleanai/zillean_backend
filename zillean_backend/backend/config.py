@@ -17,7 +17,7 @@ class Config(AppBundleConfig):
     PROJECT_ROOT = os.path.abspath(os.path.join(APP_ROOT, os.pardir))
     DATA_FOLDER = os.path.join(PROJECT_ROOT, 'data')
 
-    app_dirs = AppDirs('mlplatform')
+    app_dirs = AppDirs('zillean')
     APP_CACHE_FOLDER = app_dirs.user_cache_dir
     APP_DATA_FOLDER = app_dirs.user_data_dir
 
