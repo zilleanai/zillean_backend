@@ -20,6 +20,7 @@ class Config(AppBundleConfig):
     app_dirs = AppDirs('zillean')
     APP_CACHE_FOLDER = app_dirs.user_cache_dir
     APP_DATA_FOLDER = app_dirs.user_data_dir
+    # SERVER_NAME=os.getenv('FLASK_SERVER_NAME', 'backend:5000')
 
     ##########################################################################
     # celery                                                                 #
@@ -29,6 +30,22 @@ class Config(AppBundleConfig):
         port=os.getenv('FLASK_REDIS_PORT', 6379),
     )
     CELERY_RESULT_BACKEND = CELERY_BROKER_URL
+
+    ##########################################################################
+    # mail                                                                   #
+    ##########################################################################
+    MAIL_SERVER = os.environ.get('FLASK_MAIL_HOST', 'localhost')
+    MAIL_PORT = int(os.environ.get('FLASK_MAIL_PORT', 25))
+    MAIL_USE_TLS = get_boolean_env('FLASK_MAIL_USE_TLS', False)
+    MAIL_USE_SSL = get_boolean_env('FLASK_MAIL_USE_SSL', False)
+    MAIL_USERNAME = os.environ.get('FLASK_MAIL_USERNAME', None)
+    MAIL_PASSWORD = os.environ.get('FLASK_MAIL_PASSWORD', None)
+    MAIL_ADMINS = [os.environ.get('FLASK_MAIL_ADMIN', 'admin@localhost')]
+    MAIL_DEFAULT_SENDER = (
+        os.environ.get('FLASK_MAIL_DEFAULT_SENDER_NAME', 'Zillean'),
+        os.environ.get('FLASK_MAIL_DEFAULT_SENDER_EMAIL',
+                       f"noreply@{os.environ.get('FLASK_DOMAIN', 'zillean.ai')}")
+    )
 
     ##########################################################################
     # session/cookies                                                        #
@@ -49,6 +66,32 @@ class Config(AppBundleConfig):
     PERMANENT_SESSION_LIFETIME = timedelta(minutes=60)
 
     ##########################################################################
+    # security                                                               #
+    ##########################################################################
+    FLASH_MESSAGES = False
+    SECURITY_PASSWORD_SALT = os.environ.get('FLASK_PASSWORD_SALT', 'security-password-salt')
+    SECURITY_CONFIRMABLE = True
+    SECURITY_REGISTERABLE = True
+    SECURITY_RECOVERABLE = True
+    SECURITY_CHANGEABLE = True
+
+    ADMIN_LOGIN_ENDPOINT = 'admin.login'
+    ADMIN_LOGOUT_ENDPOINT = 'admin.logout'
+    ADMIN_POST_LOGOUT_ENDPOINT = LocalProxy(
+        lambda: url_for('frontend.index', _external=True))
+
+    SECURITY_FORGOT_PASSWORD_ENDPOINT = 'frontend.forgot_password'
+    SECURITY_API_RESET_PASSWORD_HTTP_GET_REDIRECT = 'frontend.reset_password'
+    SECURITY_INVALID_RESET_TOKEN_REDIRECT = LocalProxy(
+        lambda: url_for('frontend.forgot_password', _external=True) + '?invalid')
+    SECURITY_EXPIRED_RESET_TOKEN_REDIRECT = LocalProxy(
+        lambda: url_for('frontend.forgot_password', _external=True) + '?expired')
+    SECURITY_POST_CONFIRM_REDIRECT_ENDPOINT = LocalProxy(
+        lambda: url_for('frontend.index', _external=True) + '?welcome')
+    SECURITY_CONFIRM_ERROR_REDIRECT_ENDPOINT = LocalProxy(
+        lambda: url_for('frontend.resend_confirmation_email', _external=True))
+
+    ##########################################################################
     # database                                                               #
     ##########################################################################
     SQLALCHEMY_DATABASE_URI = '{engine}://{user}:{pw}@{host}:{port}/{db}'.format(
@@ -59,13 +102,7 @@ class Config(AppBundleConfig):
         port=os.getenv('FLASK_DATABASE_PORT', 5432),
         db=os.getenv('FLASK_DATABASE_NAME', 'flask_api'))
 
-    MAIL_DEFAULT_SENDER = f"noreply@localhost"  # FIXME
-
     WEBPACK_MANIFEST_PATH = os.path.join('static', 'assets', 'manifest.json')
-
-    ##########################################################################
-    # oauth                                                                  #
-    ##########################################################################
 
     OAUTH_REMOTE_APP_GITLAB = dict(
         consumer_key=os.getenv('OAUTH_GITLAB_CONSUMER_KEY', ''),
