@@ -20,6 +20,7 @@ class Config(AppBundleConfig):
     app_dirs = AppDirs('zillean')
     APP_CACHE_FOLDER = app_dirs.user_cache_dir
     APP_DATA_FOLDER = app_dirs.user_data_dir
+    MAX_CONTENT_LENGTH = 2 * 1024 * 1024 * 1024
     # SERVER_NAME=os.getenv('FLASK_SERVER_NAME', 'backend:5000')
 
     ##########################################################################
