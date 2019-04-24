@@ -16,6 +16,7 @@ class Config(AppBundleConfig):
     APP_ROOT = os.path.abspath(os.path.dirname(__file__))
     PROJECT_ROOT = os.path.abspath(os.path.join(APP_ROOT, os.pardir))
     DATA_FOLDER = os.path.join(PROJECT_ROOT, 'data')
+    SSH_FOLDER = os.path.join(PROJECT_ROOT, 'ssh')
 
     app_dirs = AppDirs('zillean')
     APP_CACHE_FOLDER = app_dirs.user_cache_dir
