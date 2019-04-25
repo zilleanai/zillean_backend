@@ -1,5 +1,6 @@
 FROM zilleanai/flask-unchained:buster
 USER root
+RUN apt install -y python3-opencv
 RUN pip install numpy Cython
 RUN pip install git+https://github.com/zilleanai/zillean_cli
 COPY ./zillean_backend/requirements.txt requirements.txt
